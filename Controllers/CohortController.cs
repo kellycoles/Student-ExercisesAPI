@@ -11,12 +11,12 @@ namespace StudentExecisesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InstructorsController : ControllerBase
+    public class CohortController : ControllerBase
     {
         private readonly IConfiguration _config;
 
         //constructor
-        public InstructorsController(IConfiguration config)
+        public CohortController(IConfiguration config)
         {
             _config = config;
         }
@@ -46,11 +46,11 @@ namespace StudentExecisesAPI.Controllers
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    List<Instructor> instructors = new List<Instructor>();
+                    List<Cohort> cohorts = new List<Cohort>();
 
                     while (reader.Read())
                     {
-                        Instructor instructor = new Instructor()
+                        Cohort cohort = new Cohort()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
@@ -65,13 +65,13 @@ namespace StudentExecisesAPI.Controllers
                             }
                         };
 
-                        instructors.Add(instructor);
+                        cohorts.Add(cohort);
 
                     }
 
                     reader.Close();
 
-                    return Ok(instructors);
+                    return Ok(cohorts);
                 }
             }
         }

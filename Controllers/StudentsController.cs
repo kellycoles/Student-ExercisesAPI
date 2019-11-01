@@ -63,7 +63,7 @@ namespace StudentExecisesAPI.Controllers
                                 Cohort = new Cohort()
                                 {
                                     Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                    Name = reader.GetString(reader.GetOrdinal("CohortName")),
+                                    CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                                 }
                             };
 
