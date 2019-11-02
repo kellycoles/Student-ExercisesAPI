@@ -44,6 +44,8 @@ namespace StudentExecisesAPI.Controllers
                                    LEFT JOIN StudentExercise se on se.StudentId = s.id
                                    LEFT JOIN Exercise e on se.ExerciseId = e.Id";
 
+                    
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     Dictionary<int, Student> students = new Dictionary<int, Student>();
@@ -87,6 +89,26 @@ namespace StudentExecisesAPI.Controllers
                     reader.Close();
 
                     return Ok(students.Values);
+                }
+            }
+        }
+        public void PostStudent([FromBody] Student student)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Student (FirstName,LastName,SlackHandle, 
+                                   CohortId)
+                                      
+                                        VALUES (@FirstName, @LastName,@SlackHandle,@CohortId)";
+                    cmd.Parameters.Add(new SqlParameter("@FirstName", student.FirstName));
+                    cmd.Parameters.Add(new SqlParameter("@LastName", student.LastName));
+                    cmd.Parameters.Add(new SqlParameter("@SlackHandle", student.SlackHandle));
+                    cmd.Parameters.Add(new SqlParameter("@CohortId", student.CohortId));
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
