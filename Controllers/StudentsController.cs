@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace StudentExecisesAPI.Controllers
             {
                 return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             }
-        }
+        }   
         // Get all Students
         [HttpGet]
         public async Task<IActionResult> GetAllStudents()
@@ -40,7 +41,7 @@ namespace StudentExecisesAPI.Controllers
                     cmd.CommandText = @"SELECT s.Id, s.FirstName, s.LastName, s.SlackHandle, 
                                    s.CohortId, CohortName,
                                    se.ExerciseId, ExerciseName, ExerciseLanguage
-                              FROM Student s INNER JOIN Cohort c ON s.CohortId = c.id
+                                   FROM Student s INNER JOIN Cohort c ON s.CohortId = c.id
                                    LEFT JOIN StudentExercise se on se.StudentId = s.id
                                    LEFT JOIN Exercise e on se.ExerciseId = e.Id";
 
