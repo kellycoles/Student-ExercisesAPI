@@ -59,15 +59,18 @@ namespace StudentExecisesAPI.Controllers
                             {
 
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
+                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
                             };
                             cohorts.Add(cohortId, cohort);
                         }
                         Cohort fromDictionary = cohorts[cohortId];
                         if (!reader.IsDBNull(reader.GetOrdinal("studentId")))
                         {
-                            Student student = new Student();
+
+                            Student student = new Student()
                             {
+
+                                Id = reader.GetInt32(reader.GetOrdinal("studentId")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
@@ -81,6 +84,7 @@ namespace StudentExecisesAPI.Controllers
                         {
                             Instructor instructor = new Instructor()
                             {
+                                Id = reader.GetInt32(reader.GetOrdinal("instructorId")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
@@ -92,16 +96,17 @@ namespace StudentExecisesAPI.Controllers
 
                     }
 
+                    reader.Close();
 
+                    return Ok(cohorts.Values);
 
                 };
-            }
-            reader.Close();
 
-            return Ok(cohorts.values);
+            }
+         
         }
     }
 }
-        
+
 
 
